@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protected</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <h2>Protected Area</h2>
+
+        <!-- Show message if user is authenticated -->
+        {% if request.user.is_authenticated %}
+            <p>Hi, {{ request.user.username }}! You are in the protected area.</p>
+        {% else %}
+            <p>You are not logged in. Please log in to access this area.</p>
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+
+        <!-- Navigation Links -->
+        <a href="{% url 'home' %}">Back to Home</a>
+    </div>
+</body>
+</html>

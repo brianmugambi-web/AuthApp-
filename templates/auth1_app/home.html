@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <h2>Home</h2>
+
+        <!-- Check if user is authenticated -->
+        {% if request.user.is_authenticated %}
+            <p>Welcome, {{ request.user.username }}!</p>
+            <a href="{% url 'protected' %}">Go to the protected page</a>
+            
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <p>You are not logged in.</p>
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+</body>
+</html>
